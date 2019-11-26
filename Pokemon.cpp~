@@ -56,36 +56,6 @@ Pokemon::Pokemon(string in_name, int in_id, char in_code, unsigned int in_speed,
     cout << "Pokemon constructed" << endl;
 }
 
-// PA4 new constructor
-Pokemon::Pokemon(string in_name, double speed, double hp, double phys_dmg, double magic_dmg, double def, int in_id, char in_code, Point2D in_loc): GameObject(in_loc, in_id, in_code)
-{
-    this -> speed = in_speed;
-    this -> is_in_gym = false;
-    this -> is_in_center = false;
-    this -> stamina = 20;
-    this -> experience_points = 0;
-    this -> pokemon_dollars = 0;
-    this -> training_units_to_buy = 0;
-    this -> stamina_points_to_buy = 0;
-    this -> name = in_name;
-    this -> current_center = NULL;
-    this -> current_gym = NULL;
-    this -> state = STOPPED;
-
-    // initiate PA4 private members
-    this -> health = hp;
-    this -> store_health = hp;
-    this -> physical_damage = phys_dmg;
-    this -> magic_damage = magic_dmg;
-    this -> defense = def;
-    this -> is_in_arena = false;
-    this -> target = NULL;
-    this -> current_arena = NULL;
-
-    cout << "Pokemon constructed" << endl;
-
-}
-
 // public member functions
 void Pokemon::StartMoving(Point2D dest)
 {
@@ -276,11 +246,11 @@ bool Pokemon::Update()
                     this -> state = IN_CENTER;
                     this -> is_in_center = true;
                     this -> current_center -> AddOnePokemon(); // add a pokemon to center counter
-		            this -> ShowStatus();
+		    this -> ShowStatus();
                     return true;
                 } else {
                     // pokemon did not arrive at center yet
-		            this -> ShowStatus();
+		    this -> ShowStatus();
                     return false;
                 }
                 break;
@@ -300,12 +270,12 @@ bool Pokemon::Update()
                     this -> state = IN_GYM;
                     this -> is_in_gym = true;
                     this -> current_gym -> AddOnePokemon(); // add a pokemon to the gym we just entered
-		            this -> ShowStatus();
+		    this -> ShowStatus();
                     return true;
                 } else {
                     // pokemon did not arrive at gym yet
-		            this -> ShowStatus();
-                    return false;
+		  this -> ShowStatus();
+                     return false;
                 }
                 break;
             }
@@ -330,7 +300,7 @@ bool Pokemon::Update()
             cout << "** " << this -> name << " completed " << this -> training_units_to_buy << " training unit(s)! **" << endl;
             cout << "** " << this -> name << " gained " << num_trained << " experience point(s)! **" << endl;
             this -> state = IN_GYM;
-	        this -> ShowStatus();
+	    this -> ShowStatus();
             return true;
             break;
         }
@@ -341,64 +311,8 @@ bool Pokemon::Update()
             this -> pokemon_dollars = this -> pokemon_dollars - this -> current_center -> GetDollarCost(this -> stamina_points_to_buy); // reduce pokemon money
             cout << "** " << this -> name << " recovered " << num_recovered << " stamina point(s)! **" << endl;
             this -> state = IN_CENTER;
-	        this -> ShowStatus();
+	    this -> ShowStatus();
             return true;
-            break;
-        }
-
-        // PA4 new cases
-        case FAINTED: {
-            this -> state = FAINTED;
-            return false; // do nothing (not even print ShowStatus)
-        }
-
-        case MOVING_TO_ARENA: {
-            if (this -> IsExhausted()) {
-                cout << "This Pokemon is too exhausted to move" << endl;
-                this -> state = STOPPED; // change to stopped if the pokemon can no longer move
-                this -> ShowStatus(); // call show status func with now stopped state
-                return false;
-                break;
-            } else {
-                if (this -> UpdateLocation()) {
-                    // pokemon has arrived at destination arena
-                    this -> state = IN_ARENA;
-                    this -> is_in_arena = true;
-                    this -> current_arena -> AddOnePokemon(); // add a pokemon to the gym we just entered
-		            this -> ShowStatus();
-                    return true;
-                } else {
-                    // pokemon did not arrive at gym yet
-		            this -> ShowStatus();
-                    return false;
-                }
-                break;
-            }
-        }
-
-        case IN_ARENA: {
-            this -> ShowStatus();
-            return false;
-            break;
-        }
-
-        case BATTLE: {
-            this -> pokemon_dollars -= this -> current_arena -> GetDollarCost(); // subtract dollar cost for one battle
-            this -> stamina -> -= this -> current_arena -> GetStaminaCost(); // subtract stamina cost for one battle
-
-            if(!this -> StartBattle()) {
-                // returns false if pokemon loses
-                this -> state = FAINTED;
-                this -> target -> IsAlive();
-            } else {
-                // pokemon won the battle
-                this -> health = this -> store_health; // restore to max health after victory
-                this -> state = IN_ARENA;
-                this -> target -> IsAlive();
-            }
-
-            this -> ShowStatus();
-            return true; // always return true for now to fit with my show status only on event occurence
             break;
         }
 
@@ -461,19 +375,6 @@ void Pokemon::ShowStatus()
             cout << " recovering stamina in Pokemon Center " << this -> current_center -> GetId() << endl;
             break;
         }
-
-        // cases from PA4
-        case MOVING_TO_ARENA: {
-            cout << " heading to Battle Arena " << this -> current_arena -> GetId() << 
-                    " at a speed of " << this -> speed << " at each step of " << this -> delta << endl;
-            break;
-        }
-
-        case IN_ARENA: {
-            cout << " inside Battle Arena " << this -> current_arena -> GetId() << endl;
-            break;
-        }
-
     }
     cout << "\tStamina: " << this -> stamina << endl << 
         "\tPokemon Dollars: " << this -> pokemon_dollars << endl << 
@@ -507,76 +408,13 @@ void Pokemon::SetupDestination(Point2D dest)
     this -> delta = (this -> destination - this -> location) * (this -> speed / dist); // set private member delta
 }
 
-// new PA4 public member functions
-bool Pokemon::IsAlive()
-{
-    if(this -> status == FAINTED) {
-        // pokemon is fainted
-        return false;
-    } else {
-        // pokemon not fainted
-        return true;
-    }
-}
-
-void Pokemon::TakeHit(double physical_damage, double magic_damage, double defense)
-{
-    dmg_type = rand() & 1; // chooses 1 or 0 with equal probability
-    double damage = 0.0; // damage to subtract from health
-    if(dmg_type == 0) {
-        // randomly selected magic damage
-        damage = (100.0 - defense) / 100 * magic_damage;
-    } else {
-        damage = (100.0 - defense) / 100 * physical_damage;
-    }
-
-    this -> health -= damage; // subtract damage from health
-}
-
-void Pokemon::ReadyBattle(Rival* in_target)
-{
-    if(this -> state == IN_ARENA && this -> current_arena -> IsAbleToFight() && !this -> current_arena -> IsBeaten() && in_target -> IsAlive()) {
-        // all conditions for being able to battle are correct
-        this -> target = in_target;
-        this -> state = BATTLE;
-    } else {
-        this -> state = IN_ARENA;
-    }
-}
-
-bool Pokemon::StartBattle()
-{
-    // dummy variables to make my life have fewer arrows
-    double rival_phys = this -> target -> get_phys_dmg();
-    double rival_mag = this -> target -> get_magic_dmg();
-    double rival_def = this -> target -> get_defense();
-
-    double my_phys = this -> physical_damage();
-    double my_mag = this -> magic_damage();
-    double my_def = this -> defense();
-
-    // loop until one of the two objects is beaten
-    do {
-        this -> TakeHit(rival_phys, rival_mag, my_def); // hitting pokemon (rival must hit first)
-        if(this -> health <= 0) {
-            // pokemon has fainted. return false
-            return false;
-        } else {
-            this -> target -> Takehit(my_phys, my_mag, rival_def); // hitting rival
-        }
-    } while(this -> target -> get_health() > 0); // leave loop if the pokemon hits and reduces rival health to below zero
-    // pokemon has one battle. return true
-    return true;
-}
-
-// static non member functions (from PA3)
+// static non member functions
 double GetRandomAmountOfPokemonDollars()
 {
     srand(time(NULL));
     return (rand() % 21) / 10.00;
 }
 
-// destructor (doesn't do anything but print because model deletes all object pointers)
 Pokemon::~Pokemon()
 {
   cout << "Pokemon destructed" << endl;
