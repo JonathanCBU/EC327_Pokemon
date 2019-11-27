@@ -13,8 +13,8 @@ Model::Model()
     this -> num_arenas = 1;
 
     // Create objects
-    Pokemon* P_ptr1 = new Pokemon("Pikachu", 1, 'P', 2, Point2D(5, 1));
-    Pokemon* P_ptr2 = new Pokemon("Bulbasaur", 2, 'P', 1, Point2D(10, 1));
+    Pokemon* P_ptr1 = new Pokemon("Pikachu", 2, 23, 3, 6, 15, 1, 'P', Point2D(5, 1));
+    Pokemon* P_ptr2 = new Pokemon("Bulbasaur", 1, 26, 4, 3.7, 15, 2, 'P', Point2D(10, 1));
 
     PokemonCenter* C_ptr1 = new PokemonCenter(1, 1, 100, Point2D(1, 20));
     PokemonCenter* C_ptr2 = new PokemonCenter(2, 2, 200, Point2D(10, 20));
@@ -155,11 +155,13 @@ bool Model::Update()
 void Model::Display(View& view)
 {
   cout << "Time: " << this -> time << endl;
+  cout << "Entered display" << endl;
   view.Clear(); // clear view for printing
 
-  for(int i = 0; i < num_objects; i++) {
-    view.Plot(object_ptrs[i]); // plot each object in model instance
+  for(int i = 0; i < this -> num_objects; i++) {
+    view.Plot(this -> object_ptrs[i]); // plot each object in model instance
   }
+  cout << "Finished view.Plot() loop" << endl;
 
   view.Draw(); // draw each object to the display
 }

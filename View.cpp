@@ -20,11 +20,13 @@ void View::Clear()
 
 void View::Plot(GameObject* ptr)
 {
+  cout << "Entered Plot" << endl;
   int x;
   int y; // x & y coordinates for plotting
 
   if(GetSubscripts(x, y, ptr -> GetLocation())) {
     // only proceed if object is in display
+    cout << "Subscripts: " << "(" << x << ", " << y << ")" << endl;
       if(this -> grid[x][y][0] != '.') {
 	// there is an object already at location
 	this -> grid[x][y][0] = '*';
