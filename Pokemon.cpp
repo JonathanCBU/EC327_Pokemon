@@ -103,6 +103,10 @@ void Pokemon::StartMoving(Point2D dest)
         this -> is_in_gym = false;
         this -> current_gym -> RemoveOnePokemon();
     }
+    if (this -> is_in_arena == true) {
+      this -> is_in_arena = false;
+      this -> current_arena -> RemoveOnePokemon();
+    }
     
 }
 
@@ -113,7 +117,7 @@ void Pokemon::StartMovingToCenter(PokemonCenter* center)
     int dest_Id = center -> GetId(); // get protected id number from pointer
     if (loc.x == dest.x && loc.y == dest.y) {
       // make sure that pokemon state is set to in center
-      this -> state = is_in_center;
+      this -> state = IN_CENTER;
       cout << this -> display_code << this -> id_num << 
                 ": I am already at the Pokemon Center!" << endl;
     } else {
@@ -132,6 +136,10 @@ void Pokemon::StartMovingToCenter(PokemonCenter* center)
             this -> is_in_gym = false;
             this -> current_gym -> RemoveOnePokemon();
         }
+	if (this -> is_in_arena == true) {
+	  this -> is_in_arena = false;
+	  this -> current_arena -> RemoveOnePokemon();
+	}
     }
 }
 
@@ -142,7 +150,7 @@ void Pokemon::StartMovingToGym(PokemonGym* gym)
     int dest_Id = gym -> GetId(); // get protected id number from pointer
     if (loc.x == dest.x && loc.y == dest.y) {
         // x and y coordinates are the same as the destination
-      this -> state = is_in_gym;
+      this -> state = IN_GYM;
         cout << this -> display_code << this -> id_num << ": I am already at the Pokemon Gym!" << endl;
     } else {
         // not at destination so begin moving
@@ -160,6 +168,10 @@ void Pokemon::StartMovingToGym(PokemonGym* gym)
             this -> is_in_gym = false;
             this -> current_gym -> RemoveOnePokemon();
         }
+	if (this -> is_in_arena == true) {
+	  this -> is_in_arena = false;
+	  this -> current_arena -> RemoveOnePokemon();
+	}
     }
 }
 
@@ -512,6 +524,39 @@ void Pokemon::SetupDestination(Point2D dest)
 }
 
 // new PA4 public member functions
+void Pokemon::StartMovingToArena(BattleArena* arena)
+{
+  Point2D dest = arena -> GetLocation(); // get protected location
+  Point2D loc = this -> GetLocation();
+  int dest_Id = arena -> GetId();
+  if(loc.x == dest.x && loc.y == dest.y) {
+    // x and y coordinates are the same as destination
+    this -> state = IN_ARENA;
+    cout << this -> display_code << this -> id_num << ": I am alreadt and the Battle Arena!" << endl;
+  } else {
+    // not at destination building
+    this -> SetupDestination(dest);
+    this -> state = MOVING_TO_ARENA;
+    this -> current_arena = arena;
+
+    cout << this -> display_code << this -> id_num << ": on my way to Arena " << dest_Id << endl;
+
+    if (this -> is_in_center == true) {
+      this -> is_in_center = false;
+      this -> current_center -> RemoveOnePokemon();
+    }
+    if (this -> is_in_gym == true) {
+      this -> is_in_gym = false;
+      this -> current_gym -> RemoveOnePokemon();
+    }
+    if (this -> is_in_arena == true) {
+      this -> is_in_arena = false;
+      this -> current_arena -> RemoveOnePokemon();
+    }
+  }
+}
+
+
 bool Pokemon::IsAlive()
 {
     if(this -> state == FAINTED) {

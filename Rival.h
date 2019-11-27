@@ -11,7 +11,7 @@ enum RivalStates {
 class Rival: public GameObject
 {
 	public:
-	Rival(string name, double hp, double phys_dmg, double magic_dmg, double def, int id, Point2D in_loc);
+  Rival(string name, double hp, double phys_dmg, double magic_dmg, double def, int id, Point2D in_loc, BattleArena* arena);
 	~Rival();
 
 	void TakeHit(double physical_damage, double magical_damage, double defense);

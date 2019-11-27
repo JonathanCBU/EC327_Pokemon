@@ -83,3 +83,30 @@ void DoRunCommand(Model& model, View& view)
 {
   cout << "Advancing to next event." << endl;
 }
+
+// PA4 commands
+void DoMoveToArenaCommand(Model & model, int pokemon_id, int arena_id)
+{
+  Pokemon* pokemon_ptr = model.GetPokemonPtr(pokemon_id);
+  BattleArena* arena_ptr = model.GetBattleArenaPtr(arena_id);
+  if(pokemon_ptr != 0 && arena_ptr != 0) {
+    // both pokemon and arena are valid
+    cout << "Moving Pokemon " << pokemon_id << " to Arena " << arena_id << endl;
+    pokemon_ptr -> StartMovingToArena(arena_ptr);
+  } else {
+    cout << "Error: Please enter a valid command!" << endl;
+  }
+}
+
+void DoBattleCommand(Model & model, int pokemon_id, int rival_id)
+{
+ Pokemon* pokemon_ptr = model.GetPokemonPtr(pokemon_id);
+ Rival* rival_ptr = model.GetRivalPtr(rival_id);
+ if(pokemon_ptr != 0 && rival_ptr != 0) {
+   // both object IDs are valid
+   cout << "Pokemon " << pokemon_id << " preparing to battle Rival " << rival_id << endl;
+   pokemon_ptr -> ReadyBattle(rival_ptr);
+ } else {
+   cout << "Error: Please enter a valid command!" << endl;
+ }
+}

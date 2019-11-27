@@ -29,6 +29,8 @@ int main ()
   int pokemon_id = 0;
   int center_id = 0;
   int gym_id = 0;
+  int arena_id;
+  int rival_id;
   double x = 0.0;
   double y = 0.0;
   unsigned int stamina_amount;
@@ -95,6 +97,21 @@ int main ()
 	      break; // break when an update returns true or five 'ticks' pass
 	    }
 	  }
+
+	  // PA4 cases
+      case 'a':
+	// move to arena
+	cout << "Enter a Pokemon ID and an Arena ID: ";
+	cin >> pokemon_id >> arena_id;
+	DoMoveToArenaCommand(m, pokemon_id, arena_id);
+	break;
+
+      case 'b':
+	// battle with rival
+	cout << "Enter and pokemon ID and a Rival ID: ";
+	cin >> pokemon_id >> rival_id;
+	DoBattleCommand(m, pokemon_id, rival_id);
+	break;
       }
     cout << endl;
     if(m.Update()) {

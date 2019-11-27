@@ -1,7 +1,7 @@
 #include "Rival.h"
 
 // constructor (no default yet because not specified in doc; may add later)
-Rival::Rival(string name, double hp, double phys_dmg, double magic_dmg, double def, int id, Point2D in_loc): GameObject(in_loc, id, 'R')
+Rival::Rival(string name, double hp, double phys_dmg, double magic_dmg, double def, int id, Point2D in_loc, BattleArena* arena): GameObject(in_loc, id, 'R')
 {
 	this -> name = name;
     this -> health = hp;
@@ -9,8 +9,10 @@ Rival::Rival(string name, double hp, double phys_dmg, double magic_dmg, double d
     this -> magical_damage = magic_dmg;
     this -> defense = def;
     this -> is_in_arena = false;
-    this -> current_arena = NULL;
+    this -> current_arena = arena;
     this -> state = ALIVE_RIVAL;
+
+    cout << "Rival constructed" << endl;
 }
 
 void Rival::TakeHit(double physical_damage, double magic_damage, double defense)

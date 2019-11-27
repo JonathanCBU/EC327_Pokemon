@@ -49,6 +49,7 @@ class Pokemon: public GameObject
     void TakeHit(double physical_damage, double magical_damage, double defense);
     void ReadyBattle(Rival* in_target);
     bool StartBattle();
+    void StartMovingToArena(BattleArena* arena);
 
     protected:
     bool UpdateLocation();

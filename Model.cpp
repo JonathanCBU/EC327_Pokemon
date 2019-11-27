@@ -23,10 +23,11 @@ Model::Model()
     PokemonGym* G_ptr2 = new PokemonGym(20, 5, 7.5, 8, 2, Point2D(5, 5));
 
     // PA4 new objects
-    Rival* R_ptr1 = new Rival("Nate", 16, 3, 7.2, 15, 1, Point2D(15, 12));
-    Rival* R_ptr2 = new Rival("Noah", 29, 6.4, 3.6, 15, 2, Point2D(15, 12));
 
     BattleArena* A_ptr = new BattleArena(3, 3, 4, 1, Point2D(15, 12));
+
+    Rival* R_ptr1 = new Rival("Nate", 16, 3, 7.2, 15, 1, Point2D(15, 12), A_ptr);
+    Rival* R_ptr2 = new Rival("Noah", 29, 6.4, 3.6, 15, 2, Point2D(15, 12), A_ptr);
 
     // store created objects
     this -> object_ptrs[0] = P_ptr1;
@@ -102,6 +103,29 @@ PokemonGym* Model::GetPokemonGymPtr(int id)
   return 0; // return 0 if none of the gym objects have matching id 
 }
 
+BattleArena* Model::GetBattleArenaPtr(int id)
+{
+  // loop through all available arena objects
+  for(int i = 0; i < this -> num_arenas; i++) {
+    if(this -> arena_ptrs[i] -> GetId() == id) {
+      // pointer references arena
+      return this -> arena_ptrs[i];
+    }
+  }
+  return 0; // return 0 if invalid input
+}
+
+Rival* Model::GetRivalPtr(int id)
+{
+  // follow exact same structure as all other get ptr commands
+  for(int i = 0; i < this -> num_rivals; i++) {
+    if(this -> rival_ptrs[i] -> GetId() == id) {
+      return this -> rival_ptrs[i];
+    }
+  }
+  return 0;
+}
+
 bool Model::Update()
 {
   this -> time++; // step one tick
@@ -155,13 +179,11 @@ bool Model::Update()
 void Model::Display(View& view)
 {
   cout << "Time: " << this -> time << endl;
-  cout << "Entered display" << endl;
   view.Clear(); // clear view for printing
 
   for(int i = 0; i < this -> num_objects; i++) {
     view.Plot(this -> object_ptrs[i]); // plot each object in model instance
   }
-  cout << "Finished view.Plot() loop" << endl;
 
   view.Draw(); // draw each object to the display
 }
