@@ -59,7 +59,7 @@ Pokemon::Pokemon(string in_name, int in_id, char in_code, unsigned int in_speed,
 // PA4 new constructor
 Pokemon::Pokemon(string in_name, double speed, double hp, double phys_dmg, double magic_dmg, double def, int in_id, char in_code, Point2D in_loc): GameObject(in_loc, in_id, in_code)
 {
-    this -> speed = in_speed;
+    this -> speed = speed;
     this -> is_in_gym = false;
     this -> is_in_center = false;
     this -> stamina = 20;
@@ -76,7 +76,7 @@ Pokemon::Pokemon(string in_name, double speed, double hp, double phys_dmg, doubl
     this -> health = hp;
     this -> store_health = hp;
     this -> physical_damage = phys_dmg;
-    this -> magic_damage = magic_dmg;
+    this -> magical_damage = magic_dmg;
     this -> defense = def;
     this -> is_in_arena = false;
     this -> target = NULL;
@@ -384,7 +384,7 @@ bool Pokemon::Update()
 
         case BATTLE: {
             this -> pokemon_dollars -= this -> current_arena -> GetDollarCost(); // subtract dollar cost for one battle
-            this -> stamina -> -= this -> current_arena -> GetStaminaCost(); // subtract stamina cost for one battle
+            this -> stamina = this -> stamina - this -> current_arena -> GetStaminaCost(); // subtract stamina cost for one battle
 
             if(!this -> StartBattle()) {
                 // returns false if pokemon loses
@@ -477,7 +477,11 @@ void Pokemon::ShowStatus()
     }
     cout << "\tStamina: " << this -> stamina << endl << 
         "\tPokemon Dollars: " << this -> pokemon_dollars << endl << 
-        "\tExperience Points: " << this -> experience_points << endl;
+        "\tExperience Points: " << this -> experience_points << endl <<
+        "\tHealth: " << this -> health << endl <<
+        "\tPhysical Damage: " << this -> physical_damage << endl <<
+        "\tMagical Damage: " << this -> magical_damage << endl <<
+        "\tDefense: " << this -> defense << endl;
 }
 
 // protected member functions
@@ -510,7 +514,7 @@ void Pokemon::SetupDestination(Point2D dest)
 // new PA4 public member functions
 bool Pokemon::IsAlive()
 {
-    if(this -> status == FAINTED) {
+    if(this -> state == FAINTED) {
         // pokemon is fainted
         return false;
     } else {
@@ -521,21 +525,27 @@ bool Pokemon::IsAlive()
 
 void Pokemon::TakeHit(double physical_damage, double magic_damage, double defense)
 {
-    dmg_type = rand() & 1; // chooses 1 or 0 with equal probability
+    int dmg_type = rand() & 1; // chooses 1 or 0 with equal probability
     double damage = 0.0; // damage to subtract from health
     if(dmg_type == 0) {
         // randomly selected magic damage
         damage = (100.0 - defense) / 100 * magic_damage;
+        cout << this -> name << " was hit for " << damage <<
+                " points of magic damage!" << endl;
     } else {
         damage = (100.0 - defense) / 100 * physical_damage;
+        cout << this -> name << " was hit for " << damage <<
+                " points of physical damage!" << endl;
     }
 
     this -> health -= damage; // subtract damage from health
+    cout << "Health reduced to " << this -> health << endl;
+    cout << "**********" << endl;
 }
 
 void Pokemon::ReadyBattle(Rival* in_target)
 {
-    if(this -> state == IN_ARENA && this -> current_arena -> IsAbleToFight() && !this -> current_arena -> IsBeaten() && in_target -> IsAlive()) {
+    if(this -> state == IN_ARENA && this -> current_arena -> IsAbleToFight(this -> pokemon_dollars, this -> stamina) && !this -> current_arena -> IsBeaten() && in_target -> IsAlive()) {
         // all conditions for being able to battle are correct
         this -> target = in_target;
         this -> state = BATTLE;
@@ -551,9 +561,9 @@ bool Pokemon::StartBattle()
     double rival_mag = this -> target -> get_magic_dmg();
     double rival_def = this -> target -> get_defense();
 
-    double my_phys = this -> physical_damage();
-    double my_mag = this -> magic_damage();
-    double my_def = this -> defense();
+    double my_phys = this -> physical_damage;
+    double my_mag = this -> magical_damage;
+    double my_def = this -> defense;
 
     // loop until one of the two objects is beaten
     do {
@@ -562,7 +572,7 @@ bool Pokemon::StartBattle()
             // pokemon has fainted. return false
             return false;
         } else {
-            this -> target -> Takehit(my_phys, my_mag, rival_def); // hitting rival
+            this -> target -> TakeHit(my_phys, my_mag, rival_def); // hitting rival
         }
     } while(this -> target -> get_health() > 0); // leave loop if the pokemon hits and reduces rival health to below zero
     // pokemon has one battle. return true

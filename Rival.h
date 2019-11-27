@@ -4,9 +4,9 @@
 using namespace std;
 
 enum RivalStates {
-	FAINTED_RIVAL = 1;
-	ALIVE_RIVAL = 0;
-}
+	FAINTED_RIVAL = 1,
+	ALIVE_RIVAL = 0,
+};
 
 class Rival: public GameObject
 {
@@ -20,6 +20,7 @@ class Rival: public GameObject
 	double get_health();
 	bool Update();
 	void ShowStatus();
+	bool IsAlive();
 
 	protected:
 	string name;

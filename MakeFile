@@ -2,8 +2,8 @@
 # therefore, we define the GCC variable
 GCC = g++
 
-PA3_Game: Main.o Point2D.o Vector2D.o GameObject.o Building.o PokemonCenter.o PokemonGym.o Pokemon.o Model.o GameCommand.o View.o
-	$(GCC) Main.o Point2D.o Vector2D.o GameObject.o Building.o PokemonCenter.o PokemonGym.o Pokemon.o Model.o GameCommand.o View.o -o PA3_Game
+PA3_Game: Main.o Point2D.o Vector2D.o GameObject.o Building.o PokemonCenter.o PokemonGym.o Pokemon.o Model.o GameCommand.o View.o Rival.o BattleArena.o
+	$(GCC) Main.o Point2D.o Vector2D.o GameObject.o Building.o PokemonCenter.o PokemonGym.o Pokemon.o Model.o GameCommand.o View.o Rival.o BattleArena.o -o PA3_Game
 
 # a target to compile the Main.cpp into an object-file
 Main.o: Main.cpp
@@ -40,11 +40,17 @@ Model.o: Model.cpp
 	$(GCC) -c Model.cpp
 
 GameCommand.o: GameCommand.cpp
-	       $(GCC) -c GameCommand.cpp
+	$(GCC) -c GameCommand.cpp
 
 View.o: View.cpp
 	$(GCC) -c View.cpp
 
+Rival.o: Rival.cpp
+	$(GCC) -c Rival.cpp
+
+BattleArena.o: BattleArena.cpp
+	$(GCC) -c BattleArena.cpp
+
 # a target to delete all object-files and executables
 clean:
-	rm PA3_Game *.o *~
+	rm PA3_Game *.o
