@@ -1,6 +1,6 @@
-#define BATTLEARENA_H
 #ifndef BATTLEARENA_H
-#include "Bulding.h"
+#define BATTLEARENA_H
+#include "Building.h"
 using namespace std;
 
 enum BattleArenaStates {

@@ -12,7 +12,7 @@ BattleArena::BattleArena(): Building()
 	cout << "BattleArena default constructed" << endl;
 }
 
-BattleArena(unsigned int max_rivals, unsigned int stamina_cost, double dollar_cost, int in_Id, Point2D in_loc): Building('A', in_Id, in_loc)
+BattleArena::BattleArena(unsigned int max_rivals, unsigned int stamina_cost, double dollar_cost, int in_Id, Point2D in_loc): Building('A', in_Id, in_loc)
 {
 	this -> max_num_rivals = max_rivals;
 	this -> num_rivals_remaining = max_rivals;

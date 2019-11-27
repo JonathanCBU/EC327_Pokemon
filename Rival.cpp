@@ -6,7 +6,7 @@ Rival::Rival(string name, double hp, double phys_dmg, double magic_dmg, double d
 	this -> name = name;
     this -> health = hp;
     this -> physical_damage = phys_dmg;
-    this -> magic_damage = magic_dmg;
+    this -> magical_damage = magic_dmg;
     this -> defense = def;
     this -> is_in_arena = false;
     this -> current_arena = NULL;
@@ -15,7 +15,7 @@ Rival::Rival(string name, double hp, double phys_dmg, double magic_dmg, double d
 
 void Rival::TakeHit(double physical_damage, double magic_damage, double defense)
 {
-    dmg_type = rand() & 1; // chooses 1 or 0 with equal probability
+    int dmg_type = rand() & 1; // chooses 1 or 0 with equal probability
     double damage = 0.0; // damage to subtract from health
     if(dmg_type == 0) {
         // randomly selected magic damage
@@ -23,7 +23,6 @@ void Rival::TakeHit(double physical_damage, double magic_damage, double defense)
     } else {
         damage = (100.0 - defense) / 100 * physical_damage;
     }
-
     this -> health -= damage; // subtract damage from health
 }
 
@@ -35,7 +34,7 @@ double Rival::get_phys_dmg()
 
 double Rival::get_magic_dmg()
 {
-    return this -> magic_damage;
+    return this -> magical_damage;
 }
 
 double Rival::get_defense()
@@ -80,7 +79,7 @@ void Rival::ShowStatus()
 
     cout << "\tHealth: " << this -> health << endl <<
         "\tPhysical Damage: " << this -> physical_damage << endl <<
-        "\tMagical Damage: " << this -> magic_damage << endl <<
+        "\tMagical Damage: " << this -> magical_damage << endl <<
         "\tDefense: " << this -> defense << endl;
 }
 
