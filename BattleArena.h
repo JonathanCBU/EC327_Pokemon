@@ -13,6 +13,7 @@ class BattleArena: public Building
 	public:
 	BattleArena();
 	BattleArena(unsigned int max_rivals, unsigned int stamina_cost, double dollar_cost, int in_Id, Point2D in_loc);
+	~BattleArena();
 
 	unsigned int GetNumRivalsRemaining();
 	bool HasEnoughRivals();
@@ -22,7 +23,7 @@ class BattleArena: public Building
 	bool Update();
 	bool IsBeaten();
 	void ShowStatus();
-	void RemoveOneRival();
+	void RemoveRival();
 
 	private:
 	unsigned int max_num_rivals;

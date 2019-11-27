@@ -5,10 +5,12 @@ Model::Model()
     this -> time = 0;
 
     // object counts
-    this -> num_objects = 6;
+    this -> num_objects = 8;
     this -> num_pokemon = 2;
     this -> num_centers = 2;
     this -> num_gyms = 2;
+    this -> num_rivals = 2;
+    this -> num_arenas = 1;
 
     // Create objects
     Pokemon* P_ptr1 = new Pokemon("Pikachu", 1, 'P', 2, Point2D(5, 1));
@@ -20,6 +22,12 @@ Model::Model()
     PokemonGym* G_ptr1 =  new PokemonGym(10, 1, 2.0, 3, 1, Point2D()); 
     PokemonGym* G_ptr2 = new PokemonGym(20, 5, 7.5, 8, 2, Point2D(5, 5));
 
+    // PA4 new objects
+    Rival* R_ptr1 = new Rival("Nate", 16, 3, 7.2, 15, 1, Point2D(15, 12));
+    Rival* R_ptr2 = new Rival("Noah", 29, 6.4, 3.6, 15, 2, Point2D(15, 12));
+
+    BattleArena* A_ptr = new BattleArena(3, 3, 4, 1, Point2D(15, 12));
+
     // store created objects
     this -> object_ptrs[0] = P_ptr1;
     this -> object_ptrs[1] = P_ptr2;
@@ -27,6 +35,9 @@ Model::Model()
     this -> object_ptrs[3] = C_ptr2;
     this -> object_ptrs[4] = G_ptr1;
     this -> object_ptrs[5] = G_ptr2;
+    this -> object_ptrs[6] = R_ptr1;
+    this -> object_ptrs[7] = R_ptr2;
+    this -> object_ptrs[8] = A_ptr;
 
     this -> pokemon_ptrs[0] = P_ptr1;
     this -> pokemon_ptrs[1] = P_ptr2;
@@ -36,6 +47,11 @@ Model::Model()
 
     this -> gym_ptrs[0] = G_ptr1;
     this -> gym_ptrs[1] = G_ptr2;
+
+    this -> rival_ptrs[0] = R_ptr1;
+    this -> rival_ptrs[1] = R_ptr2;
+
+    this -> arena_ptrs[0] = A_ptr;
 
     cout << "Model Default Constructed" << endl;
 }

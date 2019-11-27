@@ -1,8 +1,6 @@
 #ifndef MODEL_H
 #define MODEL_H
 #include "Pokemon.h"
-#include "PokemonCenter.h"
-#include "PokemonGym.h"
 #include "View.h"
 using namespace std;
 
@@ -22,6 +20,7 @@ class Model
     private:
     Model(const Model& M); // copy constructor
     int time;
+
     GameObject* object_ptrs[10];
     int num_objects;
 
@@ -33,5 +32,12 @@ class Model
 
     PokemonGym* gym_ptrs[10];
     int num_gyms;
+
+    // new members from PA4
+    Rival* rival_ptrs[10];
+    int num_rivals;
+
+    BattleArena* arena_ptrs[10];
+    int num_arenas;
 };
 #endif

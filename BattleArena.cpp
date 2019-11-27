@@ -71,7 +71,7 @@ bool BattleArena::IsBeaten()
 	}
 }
 
-void BattleArena::RemoveOneRival()
+void BattleArena::RemoveRival()
 {
 	this -> num_rivals_remaining -= 1;
 }
@@ -97,4 +97,9 @@ void BattleArena::ShowStatus()
 			"\tStamina cost per fight: " << this -> stamina_cost_per_fight << endl <<
 			"\tDollar cost per fight: " << this -> dollar_cost_per_fight << endl <<
 			"\t" << this -> num_rivals_remaining << " rival(s) are remaining for this arena" << endl;
+}
+
+BattleArena::~BattleArena()
+{
+	cout << "BattleArena destructed" << endl;
 }

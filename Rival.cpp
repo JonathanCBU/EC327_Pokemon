@@ -50,12 +50,13 @@ double Rival::get_health()
 // Update and ShowStatus functions which have become the worst part of these PAs
 bool Rival::Update()
 {   
-    if(this -> IsAlive()) {
-        // rival is still alive
-        return false;
+    if(!this -> IsAlive() && this -> state == ALIVE_RIVAL) {
+        // rival is not alive but state has not been changed te reflect
+        this -> state = FAINTED_RIVAL;
+        return true; // only return true once
     } else {
-        // rival has fainted
-        return true;
+        // rival is alive
+        return false;
     }
 }
 
@@ -95,4 +96,9 @@ bool Rival::IsAlive()
         this -> state = FAINTED_RIVAL;
         return false;
     }
+}
+
+Rival::~Rival()
+{
+    cout << "Rival destructed" << endl;
 }
