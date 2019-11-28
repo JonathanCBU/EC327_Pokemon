@@ -24,6 +24,7 @@ class BattleArena: public Building
 	bool IsBeaten();
 	void ShowStatus();
 	void RemoveRival();
+	bool ShouldBeVisible();
 
 	private:
 	unsigned int max_num_rivals;

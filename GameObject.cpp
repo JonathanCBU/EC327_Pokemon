@@ -44,13 +44,18 @@ bool GameObject::Update()
 
 bool GameObject::ShouldBeVisible()
 {
-  return false; // virtual
+  return true; // virtual
 }
 
 void GameObject::DrawSelf(char* ptr)
 {
-  *ptr = this -> display_code; // this line is causing the segfault on my device
-  *(ptr + 1) = '0' + this -> id_num;
+  if(this -> ShouldBeVisible()) {
+    *ptr = this -> display_code; // this line is causing the segfault on my device
+    *(ptr + 1) = '0' + this -> id_num;
+  } else {
+    *ptr = '.';
+    *(ptr + 1) = ' ';
+  }
 }
 
 GameObject::~GameObject()

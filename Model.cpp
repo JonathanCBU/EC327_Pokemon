@@ -182,7 +182,7 @@ void Model::Display(View& view)
   view.Clear(); // clear view for printing
 
   for(int i = 0; i < this -> num_objects; i++) {
-    view.Plot(this -> object_ptrs[i]); // plot each object in model instance
+    view.Plot(this -> object_ptrs[i]); // plot each object in model instance if should be visible
   }
 
   view.Draw(); // draw each object to the display

@@ -243,7 +243,7 @@ bool Pokemon::IsExhausted()
 
 bool Pokemon::ShouldBeVisible()
 {
-    if (!this -> IsExhausted()) {
+  if (!this -> IsExhausted() && this -> IsAlive()) {
         return true;
     } else {
         return false;

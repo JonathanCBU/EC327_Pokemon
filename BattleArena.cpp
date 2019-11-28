@@ -99,6 +99,11 @@ void BattleArena::ShowStatus()
 			"\t" << this -> num_rivals_remaining << " rival(s) are remaining for this arena" << endl;
 }
 
+bool BattleArena::ShouldBeVisible()
+{
+  return true;
+}
+
 BattleArena::~BattleArena()
 {
 	cout << "BattleArena destructed" << endl;

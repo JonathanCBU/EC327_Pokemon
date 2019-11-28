@@ -22,10 +22,16 @@ void Rival::TakeHit(double physical_damage, double magic_damage, double defense)
     if(dmg_type == 0) {
         // randomly selected magic damage
         damage = (100.0 - defense) / 100 * magic_damage;
+	cout << this -> name << " was hit for " << damage <<
+	  " points of magic damage!" << endl;
     } else {
         damage = (100.0 - defense) / 100 * physical_damage;
+	cout << this -> name << " was hit for " << damage << 
+	  " points of phyisical damge!" << endl;
     }
     this -> health -= damage; // subtract damage from health
+    cout << "Health reduced to " << this -> health << endl;
+    cout << "**********" << endl;
 }
 
 // getters for private members
@@ -98,6 +104,16 @@ bool Rival::IsAlive()
         this -> state = FAINTED_RIVAL;
         return false;
     }
+}
+
+bool Rival::ShouldBeVisible()
+{
+  if(this -> IsAlive()) {
+    // Rival is still alive
+    return true;
+  } else {
+    return false;
+  }
 }
 
 Rival::~Rival()

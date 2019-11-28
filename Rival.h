@@ -22,6 +22,7 @@ class Rival: public GameObject
 	bool Update();
 	void ShowStatus();
 	bool IsAlive();
+	bool ShouldBeVisible();
 
 	protected:
 	string name;
