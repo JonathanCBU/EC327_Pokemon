@@ -49,7 +49,7 @@ bool GameObject::ShouldBeVisible()
 
 void GameObject::DrawSelf(char* ptr)
 {
-  *ptr = this -> display_code;
+  *ptr = this -> display_code; // this line is causing the segfault on my device
   *(ptr + 1) = '0' + this -> id_num;
 }
 
