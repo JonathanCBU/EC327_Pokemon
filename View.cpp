@@ -24,18 +24,14 @@ void View::Plot(GameObject* ptr)
   int y; // x & y coordinates for plotting
 
   if(GetSubscripts(x, y, ptr -> GetLocation())) {
-    cout << "Subs: " << x << " " << y << endl;
     // only proceed if object is in display
       if(this -> grid[x][y][0] != '.') {
-        cout << "if grid of x, y does not equal '.'" << endl;
 	// there is an object already at location
 	this -> grid[x][y][0] = '*';
 	this -> grid[x][y][1] = ' ';
       } else {
 	char* toShow;
-  cout << "Created toShow" << endl;
 	ptr -> DrawSelf(toShow); // get display instance
-  cout << "After toShow???" << endl;
 	this -> grid[x][y][0] = toShow[0];
 	this -> grid[x][y][1] = toShow[1];
       }

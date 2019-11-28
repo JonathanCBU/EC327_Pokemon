@@ -11,7 +11,7 @@ int main ()
   cout << "EC227 Introduction to Software Engineering" << endl;
   cout << "Fall 2019" << endl;
   cout << "Author: Jonathan Cook (jecook@bu.edu)" << endl;
-  cout << "Programming Assignment 3" << endl;
+  cout << "Programming Assignment 4" << endl;
   printBanner("Banner.txt");
 
  
@@ -25,7 +25,7 @@ int main ()
 
 
   // input variables for game commands
-  char command = '$'; // place holder for input;
+  char command; // place holder for input;
   int pokemon_id = 0;
   int center_id = 0;
   int gym_id = 0;
@@ -42,54 +42,61 @@ int main ()
     cout << endl;
     switch(command) 
       {
-      case 'm':
+      case 'm': {
 	// move command
 	cout << "Enter a Pokemon ID, and point coordinates to move to: ";
 	cin >> pokemon_id >> x >> y;
 	DoMoveCommand(m, pokemon_id, Point2D(x, y));
 	break;
+      }
 
-      case 'g':
+      case 'g': {
 	// move to gym
 	cout << "Enter a Pokemon ID and Gym ID to move to: ";
 	cin >> pokemon_id >> gym_id;
 	DoMoveToGymCommand(m, pokemon_id, gym_id);
 	break;
+      }
 
-      case 'c':
+      case 'c': {
 	// move to center
 	cout << "Enter a Pokemon ID and Center ID to move to: ";
 	cin >> pokemon_id >> center_id;
 	DoMoveToCenterCommand(m, pokemon_id, center_id);
 	break;
+      }
 
-      case 's':
+      case 's': {
 	// stop pokemon
 	cout << "Enter a Pokemon ID to stop: ";
 	cin >> pokemon_id;
 	DoStopCommand(m, pokemon_id);
 	break;
+      }
 
-      case 'r':
+      case 'r' : {
 	// recover in center
 	cout << "Enter a Pokemon ID and a number of stamina points to recover: ";
 	cin >> pokemon_id >> stamina_amount;
 	DoRecoverInCenterCommand(m, pokemon_id, stamina_amount);
 	break;
+      }
 
-      case 't':
+      case 't': {
 	// train in gym
 	cout << "Enter a Pokemon ID and number of training units to complete: ";
 	cin >> pokemon_id >> unit_amount;
 	DoTrainInGymCommand(m, pokemon_id, unit_amount);
 	break;
+      }
 
-      case 'v':
+      case 'v': {
 	// go command to advance time by one tick
 	DoGoCommand(m, v); // remember to populate go command
 	break;
+      }
 
-      case 'x':
+      case 'x': {
 	// run command to advance until an event OR 5 ticks occur
 	DoRunCommand(m, v);
 	  for(int i = 0; i < 5; i++) {
@@ -97,21 +104,32 @@ int main ()
 	      break; // break when an update returns true or five 'ticks' pass
 	    }
 	  }
-
-	  // PA4 cases
-      case 'a':
+	  break;
+      }      
+      
+      case 'q': {
+	// quit command
+	cout << "Terminating program" << endl << endl;
+	return 0;
+	break;
+      }
+       
+      // PA4 cases
+      case 'a': {
 	// move to arena
 	cout << "Enter a Pokemon ID and an Arena ID: ";
 	cin >> pokemon_id >> arena_id;
 	DoMoveToArenaCommand(m, pokemon_id, arena_id);
 	break;
+      }
 
-      case 'b':
+      case 'b': {
 	// battle with rival
 	cout << "Enter and pokemon ID and a Rival ID: ";
 	cin >> pokemon_id >> rival_id;
 	DoBattleCommand(m, pokemon_id, rival_id);
 	break;
+      }
       }
     cout << endl;
     if(m.Update()) {
