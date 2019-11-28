@@ -40,6 +40,20 @@ Model::Model()
     this -> object_ptrs[7] = R_ptr2;
     this -> object_ptrs[8] = A_ptr;
 
+    // add objects to object_lst by pushing to back
+    this -> object_lst.push_back(P_ptr1);
+    this -> object_lst.push_back(P_ptr2);
+    this -> object_lst.push_back(C_ptr1);
+    this -> object_lst.push_back(C_ptr2);
+    this -> object_lst.push_back(G_ptr1);
+    this -> object_lst.push_back(G_ptr2);
+    this -> object_lst.push_back(R_ptr1);
+    this -> object_lst.push_back(R_ptr2);
+    this -> object_lst.push_back(A_ptr);
+
+
+
+
     this -> pokemon_ptrs[0] = P_ptr1;
     this -> pokemon_ptrs[1] = P_ptr2;
 
@@ -53,6 +67,8 @@ Model::Model()
     this -> rival_ptrs[1] = R_ptr2;
 
     this -> arena_ptrs[0] = A_ptr;
+
+    this -> active_ptrs = this -> object_lst;
 
     cout << "Model Default Constructed" << endl;
 }

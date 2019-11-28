@@ -7,6 +7,7 @@
 #include <string>
 #include <time.h>
 #include <stdlib.h>
+#include <list>
 using namespace std;
 
 class Vector2D

@@ -24,10 +24,13 @@ class Model
     int time;
 
     GameObject* object_ptrs[10];
+    list <GameObject*> object_lst;
+    list <GameObject*> active_ptrs;
     int num_objects;
 
     Pokemon* pokemon_ptrs[10];
     int num_pokemon;
+    list <Pokemon*> pokemon_lst;
 
     PokemonCenter* center_ptrs[10];
     int num_centers;
