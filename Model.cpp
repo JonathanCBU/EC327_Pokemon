@@ -5,7 +5,7 @@ Model::Model()
     this -> time = 0;
 
     // object counts
-    this -> num_objects = 8;
+    this -> num_objects = 9;
     this -> num_pokemon = 2;
     this -> num_centers = 2;
     this -> num_gyms = 2;
