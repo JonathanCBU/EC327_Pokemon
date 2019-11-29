@@ -10,6 +10,12 @@ enum BattleArenaStates {
 
 class BattleArena: public Building
 {
+	private:
+	unsigned int max_num_rivals;
+	unsigned int num_rivals_remaining;
+	double dollar_cost_per_fight;
+	unsigned int stamina_cost_per_fight;
+
 	public:
 	BattleArena();
 	BattleArena(unsigned int max_rivals, unsigned int stamina_cost, double dollar_cost, int in_Id, Point2D in_loc);
@@ -25,11 +31,5 @@ class BattleArena: public Building
 	void ShowStatus();
 	void RemoveRival();
 	bool ShouldBeVisible();
-
-	private:
-	unsigned int max_num_rivals;
-	unsigned int num_rivals_remaining;
-	double dollar_cost_per_fight;
-	unsigned int stamina_cost_per_fight;
 };
 #endif
