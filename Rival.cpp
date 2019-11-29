@@ -55,12 +55,19 @@ double Rival::get_health()
     return this -> health;
 }
 
+// made by me to call remove rival when battle lost
+BattleArena* Rival::get_arena()
+{
+  return this -> current_arena;
+}
+
 // Update and ShowStatus functions which have become the worst part of these PAs
 bool Rival::Update()
 {   
     if(!this -> IsAlive() && this -> state == ALIVE_RIVAL) {
         // rival is not alive but state has not been changed te reflect
         this -> state = FAINTED_RIVAL;
+	this -> current_arena -> RemoveRival();
         return true; // only return true once
     } else {
         // rival is alive

@@ -620,6 +620,7 @@ bool Pokemon::StartBattle()
             this -> target -> TakeHit(my_phys, my_mag, rival_def); // hitting rival
         }
     } while(this -> target -> get_health() > 0); // leave loop if the pokemon hits and reduces rival health to below zero
+    this -> target -> get_arena() -> RemoveRival();
     // pokemon has one battle. return true
     return true;
 }

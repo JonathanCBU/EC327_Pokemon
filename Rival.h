@@ -23,6 +23,7 @@ class Rival: public GameObject
 	void ShowStatus();
 	bool IsAlive();
 	bool ShouldBeVisible();
+	BattleArena* get_arena();
 
 	protected:
 	string name;

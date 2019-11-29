@@ -5,7 +5,7 @@ Model::Model()
     this -> time = 0;
 
     // object counts
-    this -> num_objects = 8;
+    this -> num_objects = 9;
     this -> num_pokemon = 2;
     this -> num_centers = 2;
     this -> num_gyms = 2;
@@ -24,7 +24,7 @@ Model::Model()
 
     // PA4 new objects
 
-    BattleArena* A_ptr = new BattleArena(3, 3, 4, 1, Point2D(15, 12));
+    BattleArena* A_ptr = new BattleArena(2, 3, 4, 1, Point2D(15, 12));
 
     Rival* R_ptr1 = new Rival("Nate", 16, 3, 7.2, 15, 1, Point2D(15, 12), A_ptr);
     Rival* R_ptr2 = new Rival("Noah", 29, 6.4, 3.6, 15, 2, Point2D(15, 12), A_ptr);
