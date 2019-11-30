@@ -34,15 +34,19 @@ class Model
 
     PokemonCenter* center_ptrs[10];
     int num_centers;
+    list <PokemonCenter*> center_lst;
 
     PokemonGym* gym_ptrs[10];
     int num_gyms;
+    list <PokemonGym*> gym_lst;
 
     // new members from PA4
     Rival* rival_ptrs[10];
     int num_rivals;
+    list <Rival*> rival_lst;
 
     BattleArena* arena_ptrs[10];
     int num_arenas;
+    list <BattleArena*> arena_lst;
 };
 #endif

@@ -24,21 +24,10 @@ Model::Model()
 
     // PA4 new objects
 
-    BattleArena* A_ptr = new BattleArena(2, 3, 4, 1, Point2D(15, 12));
+    BattleArena* A_ptr1 = new BattleArena(2, 3, 4, 1, Point2D(15, 12));
 
-    Rival* R_ptr1 = new Rival("Nate", 16, 3, 7.2, 15, 1, Point2D(15, 12), A_ptr);
-    Rival* R_ptr2 = new Rival("Noah", 29, 6.4, 3.6, 15, 2, Point2D(15, 12), A_ptr);
-
-    // store created objects
-    this -> object_ptrs[0] = P_ptr1;
-    this -> object_ptrs[1] = P_ptr2;
-    this -> object_ptrs[2] = C_ptr1;
-    this -> object_ptrs[3] = C_ptr2;
-    this -> object_ptrs[4] = G_ptr1;
-    this -> object_ptrs[5] = G_ptr2;
-    this -> object_ptrs[6] = R_ptr1;
-    this -> object_ptrs[7] = R_ptr2;
-    this -> object_ptrs[8] = A_ptr;
+    Rival* R_ptr1 = new Rival("Nate", 16, 3, 7.2, 15, 1, Point2D(15, 12), A_ptr1);
+    Rival* R_ptr2 = new Rival("Noah", 29, 6.4, 3.6, 15, 2, Point2D(15, 12), A_ptr1);
 
     // add objects to object_lst by pushing to back
     this -> object_lst.push_back(P_ptr1);
@@ -49,10 +38,36 @@ Model::Model()
     this -> object_lst.push_back(G_ptr2);
     this -> object_lst.push_back(R_ptr1);
     this -> object_lst.push_back(R_ptr2);
-    this -> object_lst.push_back(A_ptr);
+    this -> object_lst.push_back(A_ptr1);
 
+    this -> pokemon_lst.push_back(P_ptr1);
+    this -> pokemon_lst.push_back(P_ptr2);
 
+    this -> center_lst.push_back(C_ptr1);
+    this -> center_lst.push_back(C_ptr2);
 
+    this -> gym_lst.push_back(G_ptr1);
+    this -> gym_lst.push_back(G_ptr1);
+
+    this -> rival_lst.push_back(R_ptr1);
+    this -> rival_lst.push_back(R_ptr2);
+
+    this -> arena_lst.push_back(A_ptr1);
+
+    this -> active_ptrs = this -> object_lst;
+
+    // All obselete code from arrays in PA3. leave in until ready to test with lists
+
+    // store created objects
+    this -> object_ptrs[0] = P_ptr1;
+    this -> object_ptrs[1] = P_ptr2;
+    this -> object_ptrs[2] = C_ptr1;
+    this -> object_ptrs[3] = C_ptr2;
+    this -> object_ptrs[4] = G_ptr1;
+    this -> object_ptrs[5] = G_ptr2;
+    this -> object_ptrs[6] = R_ptr1;
+    this -> object_ptrs[7] = R_ptr2;
+    this -> object_ptrs[8] = A_ptr1;
 
     this -> pokemon_ptrs[0] = P_ptr1;
     this -> pokemon_ptrs[1] = P_ptr2;
@@ -66,9 +81,8 @@ Model::Model()
     this -> rival_ptrs[0] = R_ptr1;
     this -> rival_ptrs[1] = R_ptr2;
 
-    this -> arena_ptrs[0] = A_ptr;
+    this -> arena_ptrs[0] = A_ptr1;
 
-    this -> active_ptrs = this -> object_lst;
 
     cout << "Model Default Constructed" << endl;
 }
