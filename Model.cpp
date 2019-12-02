@@ -163,7 +163,6 @@ bool Model::Update()
     }
   }
 
-  
   // Commented block out for causing seg fault after removing dead objects and causing infinite loop in run command again
   // remove dead objects from active_ptrs
   for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
@@ -193,7 +192,6 @@ void Model::Display(View& view)
   view.Draw(); // draw each object to the display
 }
 
-
 void Model::ShowStatus()
 {
   cout << "Time: " << this -> time << endl;
@@ -201,4 +199,3 @@ void Model::ShowStatus()
     (*it) -> ShowStatus();
   }
 }
-

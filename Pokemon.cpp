@@ -590,12 +590,17 @@ void Pokemon::TakeHit(double physical_damage, double magic_damage, double defens
 
 void Pokemon::ReadyBattle(Rival* in_target)
 {
-    if(this -> state == IN_ARENA && this -> current_arena -> IsAbleToFight(this -> pokemon_dollars, this -> stamina) && !this -> current_arena -> IsBeaten() && in_target -> IsAlive()) {
-        // all conditions for being able to battle are correct
+    if(!this -> is_in_arena) {
+        cout << this -> display_code << this -> id_num << ": can only battle when in an arena!" << endl;
+    } else if(!this -> current_arena -> IsAbleToFight(this -> pokemon_dollars, this -> stamina) || this -> state == FAINTED) {
+        cout << this -> display_code << this -> id_num << ": can't afford to battle here!" << endl;
+        this -> state = IN_ARENA;
+    } else if(this -> current_arena -> IsBeaten() || !in_target -> IsAlive()) {
+        cout << "Arena or Rival is already beaten!" << endl;
+        this -> state = IN_ARENA;
+    } else {
         this -> target = in_target;
         this -> state = BATTLE;
-    } else {
-        this -> state = IN_ARENA;
     }
 }
 

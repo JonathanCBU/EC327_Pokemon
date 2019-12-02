@@ -21,9 +21,11 @@ class Model
 
     private:
     Model(const Model& M); // copy constructor
+    
     int time;
 
     list <GameObject*> object_ptrs;
+
     list <GameObject*> active_ptrs;
 
     list <Pokemon*> pokemon_ptrs;
