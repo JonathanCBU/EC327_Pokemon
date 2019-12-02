@@ -163,7 +163,6 @@ bool Model::Update()
     }
   }
 
-  // Commented block out for causing seg fault after removing dead objects and causing infinite loop in run command again
   // remove dead objects from active_ptrs
   for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
     if(!(*it) -> ShouldBeVisible()) {
@@ -195,7 +194,7 @@ void Model::Display(View& view)
 void Model::ShowStatus()
 {
   cout << "Time: " << this -> time << endl;
-  for(list<GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
+  for(list<GameObject*>::iterator it = object_ptrs.begin(); it != object_ptrs.end(); ++it) {
     (*it) -> ShowStatus();
   }
 }
