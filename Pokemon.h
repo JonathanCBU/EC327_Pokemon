@@ -50,6 +50,8 @@ class Pokemon: public GameObject
     void ReadyBattle(Rival* in_target);
     bool StartBattle();
     void StartMovingToArena(BattleArena* arena);
+    bool IsBeaten(); // my own function
+
 
     protected:
     bool UpdateLocation();

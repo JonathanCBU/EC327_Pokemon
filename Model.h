@@ -23,19 +23,18 @@ class Model
     Model(const Model& M); // copy constructor
     int time;
 
-    list <GameObject*> object_lst;
+    list <GameObject*> object_ptrs;
     list <GameObject*> active_ptrs;
 
+    list <Pokemon*> pokemon_ptrs;
 
-    list <Pokemon*> pokemon_lst;
+    list <PokemonCenter*> center_ptrs;
 
-    list <PokemonCenter*> center_lst;
-
-    list <PokemonGym*> gym_lst;
+    list <PokemonGym*> gym_ptrs;
 
     // new members from PA4
-    list <Rival*> rival_lst;
+    list <Rival*> rival_ptrs;
 
-    list <BattleArena*> arena_lst;
+    list <BattleArena*> arena_ptrs;
 };
 #endif

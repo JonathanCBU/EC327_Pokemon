@@ -262,8 +262,8 @@ bool Pokemon::Update()
         }
 
         case MOVING: {
-            if (this -> IsExhausted()) {
-                cout << "This Pokemon is too exhausted to move" << endl;
+	  if (this -> IsExhausted() || !this -> IsAlive()) {
+                cout << "This Pokemon is too exhausted to move or has fainted" << endl;
                 this -> state = STOPPED; // change to stopped if the pokemon can no longer move
                 this -> ShowStatus(); // call show status func with now stopped state
                 return false;
@@ -276,8 +276,8 @@ bool Pokemon::Update()
         }
         
         case MOVING_TO_CENTER: {
-            if (this -> IsExhausted()) {
-                cout << "This Pokemon is too exhausted to move" << endl;
+	  if (this -> IsExhausted() || !this -> IsAlive()) {
+                cout << "This Pokemon is too exhausted to move or has fainted" << endl;
                 this -> state = STOPPED; // change to stopped if the pokemon can no longer move
                 this -> ShowStatus(); // call show status func with now stopped state
                 return false;
@@ -300,8 +300,8 @@ bool Pokemon::Update()
         }
 
         case MOVING_TO_GYM: {
-            if (this -> IsExhausted()) {
-                cout << "This Pokemon is too exhausted to move" << endl;
+	  if (this -> IsExhausted() || !this -> IsAlive()) {
+                cout << "This Pokemon is too exhausted to move or has fainted" << endl;
                 this -> state = STOPPED; // change to stopped if the pokemon can no longer move
                 this -> ShowStatus(); // call show status func with now stopped state
                 return false;
@@ -365,8 +365,8 @@ bool Pokemon::Update()
         }
 
         case MOVING_TO_ARENA: {
-            if (this -> IsExhausted()) {
-                cout << "This Pokemon is too exhausted to move" << endl;
+	  if (this -> IsExhausted() || !this -> IsAlive()) {
+                cout << "This Pokemon is too exhausted to move or has fainted" << endl;
                 this -> state = STOPPED; // change to stopped if the pokemon can no longer move
                 this -> ShowStatus(); // call show status func with now stopped state
                 return false;
@@ -625,6 +625,17 @@ bool Pokemon::StartBattle()
     return true;
 }
 
+// my own member function for determining loss conditions more easily
+bool Pokemon::IsBeaten() 
+{
+  if(this -> IsExhausted() || !this -> IsAlive()) {
+    // return true if either loss condition is satisfied for this pokemon
+    return true;
+  } else {
+    // pokemon is both alive and not exhausted
+    return false;
+  }
+}
 // static non member functions (from PA3)
 double GetRandomAmountOfPokemonDollars()
 {
