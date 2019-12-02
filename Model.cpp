@@ -176,7 +176,7 @@ bool Model::Update()
     }
   }
 
-  /*
+  
 Commented block out for causing seg fault after removing dead objects and causing infinite loop in run command again
   // remove dead objects from active_ptrs
   for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
@@ -185,7 +185,7 @@ Commented block out for causing seg fault after removing dead objects and causin
       cout << "Dead Object Removed" << endl;
     }
   }
-  */
+  
   if(true_Updates > 0) {
     // return true if any update returned true
     return true;
