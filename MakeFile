@@ -1,6 +1,6 @@
 # in EC327, we use the g++ compiler
 # therefore, we define the GCC variable
-GCC = g++
+GCC = g++ -std=c++11
 
 PA3_Game: Main.o Point2D.o Vector2D.o GameObject.o Building.o PokemonCenter.o PokemonGym.o Pokemon.o Model.o GameCommand.o View.o Rival.o BattleArena.o
 	$(GCC) Main.o Point2D.o Vector2D.o GameObject.o Building.o PokemonCenter.o PokemonGym.o Pokemon.o Model.o GameCommand.o View.o Rival.o BattleArena.o -o PA3_Game

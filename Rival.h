@@ -19,6 +19,7 @@ class Rival: public GameObject
 	double get_magic_dmg();
 	double get_defense();
 	double get_health();
+	string get_name();
 	bool Update();
 	void ShowStatus();
 	bool IsAlive();

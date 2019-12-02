@@ -61,6 +61,11 @@ BattleArena* Rival::get_arena()
   return this -> current_arena;
 }
 
+string Rival::get_name()
+{
+    return this -> name;
+}
+
 // Update and ShowStatus functions which have become the worst part of these PAs
 bool Rival::Update()
 {   

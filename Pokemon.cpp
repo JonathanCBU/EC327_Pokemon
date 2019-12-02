@@ -235,6 +235,7 @@ void Pokemon::Stop()
 bool Pokemon::IsExhausted()
 {
     if (this -> stamina == 0) {
+        this -> state = EXHAUSTED;
         return true;
     } else {
         return false;
@@ -358,9 +359,15 @@ bool Pokemon::Update()
             break;
         }
 
+        case EXHAUSTED: {
+            this -> ShowStatus();
+            return false;
+        }
+
         // PA4 new cases
         case FAINTED: {
             this -> state = FAINTED;
+            this -> ShowStatus();
             return false; // do nothing (not even print ShowStatus)
         }
 
@@ -474,6 +481,11 @@ void Pokemon::ShowStatus()
             break;
         }
 
+        case EXHAUSTED: {
+            cout << " exhausted..." << endl;
+            break;
+        }
+
         // cases from PA4
         case MOVING_TO_ARENA: {
             cout << " heading to Battle Arena " << this -> current_arena -> GetId() << 
@@ -483,6 +495,11 @@ void Pokemon::ShowStatus()
 
         case IN_ARENA: {
             cout << " inside Battle Arena " << this -> current_arena -> GetId() << endl;
+            break;
+        }
+
+        case FAINTED: {
+            cout << " fainted..." << endl;
             break;
         }
 
@@ -620,6 +637,7 @@ bool Pokemon::StartBattle()
         this -> TakeHit(rival_phys, rival_mag, my_def); // hitting pokemon (rival must hit first)
         if(this -> health <= 0) {
             // pokemon has fainted. return false
+            cout << this -> target -> get_name() << " has won!" << endl;
             return false;
         } else {
             this -> target -> TakeHit(my_phys, my_mag, rival_def); // hitting rival
@@ -627,6 +645,7 @@ bool Pokemon::StartBattle()
     } while(this -> target -> get_health() > 0); // leave loop if the pokemon hits and reduces rival health to below zero
     this -> target -> get_arena() -> RemoveRival();
     // pokemon has one battle. return true
+    cout << this -> name << " has won!" << endl;
     return true;
 }
 

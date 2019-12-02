@@ -1,5 +1,6 @@
-#include "Model.h"
+// #include "Model.h"
 #include "GameCommand.h"
+#include "Input_Handling.h"
 
 void printBanner(const char*);
 
@@ -40,6 +41,7 @@ int main ()
     cout << "Enter a command character: ";
     cin >> command;
     cout << endl;
+    try {
     switch(command) 
       {
       case 'm': {
@@ -108,29 +110,33 @@ int main ()
       }      
       
       case 'q': {
-	// quit command
-	cout << "Terminating program" << endl << endl;
-	return 0;
-	break;
+            // quit command
+            cout << "Terminating program" << endl << endl;
+            return 0;
+            break;
       }
        
       // PA4 cases
       case 'a': {
-	// move to arena
-	cout << "Enter a Pokemon ID and an Arena ID: ";
-	cin >> pokemon_id >> arena_id;
-	DoMoveToArenaCommand(m, pokemon_id, arena_id);
-	break;
+            // move to arena
+            cout << "Enter a Pokemon ID and an Arena ID: ";
+            cin >> pokemon_id >> arena_id;
+            DoMoveToArenaCommand(m, pokemon_id, arena_id);
+            break;
       }
 
       case 'b': {
-	// battle with rival
-	cout << "Enter and pokemon ID and a Rival ID: ";
-	cin >> pokemon_id >> rival_id;
-	DoBattleCommand(m, pokemon_id, rival_id);
-	break;
+            // battle with rival
+            cout << "Enter and pokemon ID and a Rival ID: ";
+            cin >> pokemon_id >> rival_id;
+            DoBattleCommand(m, pokemon_id, rival_id);
+            break;
       }
       }
+    }
+    catch (Invalid_Input& except) {
+          cout << "Invalid input - " << except.msg_ptr << endl;
+    }
     cout << endl;
     if(m.Update()) {
       // print status of all object when an event occurs
