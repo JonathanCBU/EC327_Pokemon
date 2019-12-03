@@ -45,7 +45,15 @@ Model::Model()
 
     this -> arena_ptrs.push_back(A_ptr1);
 
-    this -> active_ptrs = this -> object_ptrs;
+    this -> active_ptrs.push_back(P_ptr1);
+    this -> active_ptrs.push_back(P_ptr2);
+    this -> active_ptrs.push_back(C_ptr1);
+    this -> active_ptrs.push_back(C_ptr2);
+    this -> active_ptrs.push_back(G_ptr1);
+    this -> active_ptrs.push_back(G_ptr2);
+    this -> active_ptrs.push_back(R_ptr1);
+    this -> active_ptrs.push_back(R_ptr2);
+    this -> active_ptrs.push_back(A_ptr1);
 
     cout << "Model Default Constructed" << endl;
 }
@@ -118,7 +126,7 @@ Rival* Model::GetRivalPtr(int id)
 bool Model::Update()
 {  
   this -> time++; // step one tick
-
+  
   // BEATEN POKEMON LOOSE CONDITION (FAINTED OR EXHAUSTED)
   int num_beaten_pokemon = 0;
   for(list <Pokemon*>::iterator it = pokemon_ptrs.begin(); it != pokemon_ptrs.end(); ++it) {
@@ -130,7 +138,7 @@ bool Model::Update()
     cout << "GAME OVER: You Lose! All pokemon are exhausted or fainted!" << endl;
     exit(0);
   }
-
+  cout << "Checked loose condition" << endl;
   // FAINTED RIVALS WIN CONDITION
   int num_arenas_beaten = 0; // counter for beaten arenas (internal rivals fainted)
   for(list <BattleArena*>::iterator it = arena_ptrs.begin(); it != arena_ptrs.end(); ++it) {
@@ -142,7 +150,7 @@ bool Model::Update()
     cout << "GAME OVER: You Win! All Battle Arenas are beaten!" << endl;
     exit(0); // leave program from function
   }
-
+  cout << "Checked win1 condition" << endl;
   // BEATEN GYMS WIN CONDITION
   int num_gyms_beaten = 0; // counter for beaten gyms (internal units all trained)
   for(list <PokemonGym*>::iterator it = gym_ptrs.begin(); it != gym_ptrs.end(); ++it) {
@@ -157,13 +165,14 @@ bool Model::Update()
   
   // if function reaches this point then model must continue to update all objects
   int true_Updates = 0; // counts number of update calls that return true
+    
   for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
     cout << "This is the pointer value I'm getting: " << *it << endl;
     if((*it) -> Update()) {
       true_Updates++;
     }
   }
-
+  
   // remove dead objects from active_ptrs
   for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
     if(!(*it) -> ShouldBeVisible()) {
@@ -195,6 +204,7 @@ void Model::Display(View& view)
 void Model::ShowStatus()
 {
   cout << "Time: " << this -> time << endl;
+  cout << "in SHowStatus() " << endl;
   for(list<GameObject*>::iterator it = object_ptrs.begin(); it != object_ptrs.end(); ++it) {
     (*it) -> ShowStatus();
   }
