@@ -18,6 +18,8 @@ class GameObject
     virtual bool ShouldBeVisible();
     void DrawSelf(char* ptr);
 
+    char GetCode();
+
     protected:
     Point2D location;
     int id_num;

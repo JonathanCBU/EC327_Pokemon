@@ -667,6 +667,11 @@ double GetRandomAmountOfPokemonDollars()
     return (rand() % 21) / 10.00;
 }
 
+char Pokemon::GetCode()
+{
+  return this -> display_code;
+}
+
 // destructor (doesn't do anything but print because model deletes all object pointers)
 Pokemon::~Pokemon()
 {

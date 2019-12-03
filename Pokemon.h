@@ -44,6 +44,8 @@ class Pokemon: public GameObject
     bool Update();
     void ShowStatus();
 
+    char GetCode();
+
     // new public member functions from PA4
     bool IsAlive();
     void TakeHit(double physical_damage, double magical_damage, double defense);

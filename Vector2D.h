@@ -8,6 +8,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <list>
+#include <iterator>
 using namespace std;
 
 class Vector2D

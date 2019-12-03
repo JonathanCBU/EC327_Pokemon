@@ -58,6 +58,11 @@ void GameObject::DrawSelf(char* ptr)
   }
 }
 
+char GameObject::GetCode()
+{
+  return this -> display_code;
+}
+
 GameObject::~GameObject()
 {
   cout << "GameObject destructed" << endl;
