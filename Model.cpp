@@ -116,75 +116,7 @@ Rival* Model::GetRivalPtr(int id)
 }
 
 bool Model::Update()
-{
-    //variables for running
-  bool update = false;
-  bool gym = true;
-  bool exhausted = true;
-  bool arena = true;
-  int activenum = 0;
-  int pokenum = 0;
-  
-  //incriment time
-  this -> time += 1;
-
-  list<GameObject*>::iterator GOit;
-  for(GOit=this->object_ptrs.begin(); GOit != this->object_ptrs.end(); ++GOit) {
-    if ((*GOit)->Update()) {
-      update = true;
-    }
-    //Remove Dead objects
-    if ((*GOit)->GetCode() == 'p' || (*GOit)->GetCode() == 'r' || (*GOit)->GetCode() == 'c' || (*GOit)->GetCode() == 'g' || (*GOit)->GetCode() == 'a') {
-      this->active_ptrs.remove(*GOit);
-      cout << "Dead object removed" << endl;
-    }
-  }
-  
-  //check gyms
-  list<PokemonGym*>::iterator PGit;
-  for (PGit=this->gym_ptrs.begin(); PGit != this->gym_ptrs.end(); ++PGit) {
-    if (!(*PGit)->IsBeaten()) {
-      gym = false;
-    }
-  }
-  
-
-  //Fix
-  list<Pokemon*>::iterator it;
-  for (it = this->pokemon_ptrs.begin(); it != this->pokemon_ptrs.end(); ++it) {
-    if((*it)->GetCode() == 'P') {
-      exhausted = false;
-    }
-  }
-
-  //check if arena is beaten
-  list<BattleArena*>::iterator Ait;
-  for (Ait = this->arena_ptrs.begin(); Ait != this->arena_ptrs.end(); ++Ait) {
-    if (!(*Ait)->IsBeaten()) {
-      arena = false;
-    }
-  }
-  
-  //gyms beaten
-  if(gym) {
-    cout << "GAMEOVER: You win! All Pokemon Gyms beaten!" << endl;
-    exit(0);
-  }
-
-  //pokemon exhausted
-  if(exhausted) {
-    cout << "GAME OVER: You lose! All of your Pokemon are tired!" << endl;
-    exit(0);
-  }
-
-  if(arena) {
-    cout << "GAME OVER: You Win! No more rivals remaining!" << endl;
-    exit(0);
-  }
-
-  return update;
-  
-  /*
+{  
   this -> time++; // step one tick
 
   // BEATEN POKEMON LOOSE CONDITION (FAINTED OR EXHAUSTED)
@@ -226,6 +158,7 @@ bool Model::Update()
   // if function reaches this point then model must continue to update all objects
   int true_Updates = 0; // counts number of update calls that return true
   for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
+    cout << "This is the pointer value I'm getting: " << *it << endl;
     if((*it) -> Update()) {
       true_Updates++;
     }
@@ -245,7 +178,6 @@ bool Model::Update()
   } else {
     return false;
   }
-  */
 }
 
 void Model::Display(View& view)
