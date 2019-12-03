@@ -62,7 +62,7 @@ Model::Model()
 Model::~Model()
 {
 
-  for(list <GameObject*>::iterator it = object_ptrs.begin(); it != object_ptrs.end(); ++it) {
+  for(list <GameObject*>::iterator it = object_ptrs.begin(); it != object_ptrs.end(); it++) {
     delete *it;
   }
   cout << "Model destructed." << endl;
@@ -71,7 +71,7 @@ Model::~Model()
 Pokemon* Model::GetPokemonPtr(int id)
 {
   // loop through each list item using iterator
-  for(list <Pokemon*>::iterator it = pokemon_ptrs.begin(); it != pokemon_ptrs.end(); ++it) {
+  for(list <Pokemon*>::iterator it = pokemon_ptrs.begin(); it != pokemon_ptrs.end(); it++) {
     if((*it) -> GetId() == id) {
       return *it;
     }
@@ -82,7 +82,7 @@ Pokemon* Model::GetPokemonPtr(int id)
 PokemonCenter* Model::GetPokemonCenterPtr(int id)
 {
   // loop through each list item using iterator
-  for(list <PokemonCenter*>::iterator it = center_ptrs.begin(); it != center_ptrs.end(); ++it) {
+  for(list <PokemonCenter*>::iterator it = center_ptrs.begin(); it != center_ptrs.end(); it++) {
     if((*it) -> GetId() == id) {
       return *it;
     }
@@ -93,7 +93,7 @@ PokemonCenter* Model::GetPokemonCenterPtr(int id)
 PokemonGym* Model::GetPokemonGymPtr(int id)
 {
   // loop through each list item using iterator
-  for(list <PokemonGym*>::iterator it = gym_ptrs.begin(); it != gym_ptrs.end(); ++it) {
+  for(list <PokemonGym*>::iterator it = gym_ptrs.begin(); it != gym_ptrs.end(); it++) {
     if((*it) -> GetId() == id) {
       return *it;
     }
@@ -104,7 +104,7 @@ PokemonGym* Model::GetPokemonGymPtr(int id)
 BattleArena* Model::GetBattleArenaPtr(int id)
 {
   // loop through each list item using iterator
-  for(list <BattleArena*>::iterator it = arena_ptrs.begin(); it != arena_ptrs.end(); ++it) {
+  for(list <BattleArena*>::iterator it = arena_ptrs.begin(); it != arena_ptrs.end(); it++) {
     if((*it) -> GetId() == id) {
       return *it;
     }
@@ -115,7 +115,7 @@ BattleArena* Model::GetBattleArenaPtr(int id)
 Rival* Model::GetRivalPtr(int id)
 {
   // loop through each list item using iterator
-  for(list <Rival*>::iterator it = rival_ptrs.begin(); it != rival_ptrs.end(); ++it) {
+  for(list <Rival*>::iterator it = rival_ptrs.begin(); it != rival_ptrs.end(); it++) {
     if((*it) -> GetId() == id) {
       return *it;
     }
@@ -129,7 +129,7 @@ bool Model::Update()
   
   // BEATEN POKEMON LOOSE CONDITION (FAINTED OR EXHAUSTED)
   int num_beaten_pokemon = 0;
-  for(list <Pokemon*>::iterator it = pokemon_ptrs.begin(); it != pokemon_ptrs.end(); ++it) {
+  for(list <Pokemon*>::iterator it = pokemon_ptrs.begin(); it != pokemon_ptrs.end(); it++) {
     if((*it) -> IsBeaten()) {
       num_beaten_pokemon++;
     }
@@ -138,10 +138,9 @@ bool Model::Update()
     cout << "GAME OVER: You Lose! All pokemon are exhausted or fainted!" << endl;
     exit(0);
   }
-  cout << "Checked loose condition" << endl;
   // FAINTED RIVALS WIN CONDITION
   int num_arenas_beaten = 0; // counter for beaten arenas (internal rivals fainted)
-  for(list <BattleArena*>::iterator it = arena_ptrs.begin(); it != arena_ptrs.end(); ++it) {
+  for(list <BattleArena*>::iterator it = arena_ptrs.begin(); it != arena_ptrs.end(); it++) {
     if((*it) -> IsBeaten()) {
       num_arenas_beaten++;
     }
@@ -150,10 +149,9 @@ bool Model::Update()
     cout << "GAME OVER: You Win! All Battle Arenas are beaten!" << endl;
     exit(0); // leave program from function
   }
-  cout << "Checked win1 condition" << endl;
   // BEATEN GYMS WIN CONDITION
   int num_gyms_beaten = 0; // counter for beaten gyms (internal units all trained)
-  for(list <PokemonGym*>::iterator it = gym_ptrs.begin(); it != gym_ptrs.end(); ++it) {
+  for(list <PokemonGym*>::iterator it = gym_ptrs.begin(); it != gym_ptrs.end(); it++) {
     if((*it) -> IsBeaten()) {
       num_gyms_beaten++;
     }
@@ -166,21 +164,29 @@ bool Model::Update()
   // if function reaches this point then model must continue to update all objects
   int true_Updates = 0; // counts number of update calls that return true
     
-  for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
-    cout << "This is the pointer value I'm getting: " << *it << endl;
+  for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); it++) {
     if((*it) -> Update()) {
       true_Updates++;
     }
   }
-  
+    
   // remove dead objects from active_ptrs
-  for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
+  vector <GameObject*> toRemove;
+  for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); it++) {
     if(!(*it) -> ShouldBeVisible()) {
-      active_ptrs.erase(it);
+      toRemove.push_back(*it);
       cout << "Dead Object Removed" << endl;
     }
   }
   
+
+  // loop through vector to remove marked objects
+  for(int i = 0; i < toRemove.size(); i++) {
+    active_ptrs.remove(toRemove[i]);
+  }
+
+
+
   if(true_Updates > 0) {
     // return true if any update returned true
     return true;
@@ -194,7 +200,7 @@ void Model::Display(View& view)
   cout << "Time: " << this -> time << endl;
   view.Clear(); // clear view for printing
 
-  for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); ++it) {
+  for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); it++) {
     view.Plot(*it); // plot each object in model instance if should be visible
   }
 
@@ -204,8 +210,7 @@ void Model::Display(View& view)
 void Model::ShowStatus()
 {
   cout << "Time: " << this -> time << endl;
-  cout << "in SHowStatus() " << endl;
-  for(list<GameObject*>::iterator it = object_ptrs.begin(); it != object_ptrs.end(); ++it) {
+  for(list<GameObject*>::iterator it = object_ptrs.begin(); it != object_ptrs.end(); it++) {
     (*it) -> ShowStatus();
   }
 }

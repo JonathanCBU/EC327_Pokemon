@@ -30,10 +30,7 @@ void View::Plot(GameObject* ptr)
 	this -> grid[x][y][0] = '*';
 	this -> grid[x][y][1] = ' ';
       } else {
-	char* toShow;
-	ptr -> DrawSelf(toShow); // get display instance
-	this -> grid[x][y][0] = toShow[0];
-	this -> grid[x][y][1] = toShow[1];
+	ptr -> DrawSelf(&this -> grid[x][y][0]); // get display instance
       }
    }
 }

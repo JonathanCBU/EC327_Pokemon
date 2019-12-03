@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <list>
 #include <iterator>
+#include <vector>
 using namespace std;
 
 class Vector2D
