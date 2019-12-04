@@ -21,6 +21,8 @@ void DoRunCommand(Model& model, View& view);
 
 // PA4 commands
 void DoMoveToArenaCommand(Model & model, int pokemon_id, int model_id);
+
 void DoBattleCommand(Model & model, int pokemon_id, int rival_id);
 
+void DoNewObjectCommand(Model & model, char type, int id, Point2D p);
 #endif

@@ -30,6 +30,7 @@ class BattleArena: public Building
 	bool IsBeaten();
 	void ShowStatus();
 	void RemoveRival();
+	void AddRival();
 	bool ShouldBeVisible();
 };
 #endif

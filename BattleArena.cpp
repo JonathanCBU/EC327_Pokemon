@@ -76,6 +76,12 @@ void BattleArena::RemoveRival()
 	this -> num_rivals_remaining -= 1;
 }
 
+void BattleArena::AddRival()
+{
+  // not at cap for number of rivals of this building
+  this -> num_rivals_remaining += 1;
+}
+
 bool BattleArena::Update()
 {
 	if(this -> IsBeaten() && this -> state == RIVALS_AVAILABLE) {

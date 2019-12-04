@@ -18,6 +18,7 @@ class Model
     bool Update();
     void Display(View& view);
     void ShowStatus();
+    void NewCommand(char type, int id, Point2D p);
 
     private:
     Model(const Model& M); // copy constructor

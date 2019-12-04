@@ -35,11 +35,13 @@ int main ()
   double y = 0.0;
   unsigned int stamina_amount;
   unsigned int unit_amount;
+  int new_id = 0;
+  char object_key;
 
   do {
     cout << "Enter a command character: ";
     try {
-    command = get_char();
+      cin >> command;
     cout << endl;
     switch(command) 
       {
@@ -131,6 +133,15 @@ int main ()
             DoBattleCommand(m, pokemon_id, rival_id);
             break;
       }
+
+      case 'n': {
+	// create new object
+	cout << "Enter an object key, ID number, and x & y coordinates: ";
+	cin >> object_key >> new_id >> x >> y;
+	DoNewObjectCommand(m, object_key, new_id, Point2D(x, y));
+	break;
+      }
+
       }
     }
     catch (Invalid_Input& except) {

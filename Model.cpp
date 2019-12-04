@@ -212,3 +212,71 @@ void Model::ShowStatus()
     (*it) -> ShowStatus();
   }
 }
+
+void Model::NewCommand(char type, int id, Point2D p)
+{
+  switch(type) 
+    {
+    case 'g': {
+      // check ID input before moving on
+      PokemonGym* check_ptr = this -> GetPokemonGymPtr(id);
+      if(check_ptr == 0) {
+	// there is not a gym object with input id yet
+	PokemonGym* newGym = new PokemonGym(10, 2, 2, 3, id, p); // default inputs - unclear if I should ask for each value
+	this -> gym_ptrs.push_back(newGym);
+	this -> active_ptrs.push_back(newGym);
+	this -> object_ptrs.push_back(newGym);
+      } else {
+	cout << "Not a valid ID number" << endl;
+      }
+      break;
+    }
+
+    case 'c': {
+      // check ID input before moving on
+      PokemonCenter* check_ptr = this -> GetPokemonCenterPtr(id);
+      if(check_ptr == 0) {
+	// there is not a center object with input id yet
+	PokemonCenter* newCenter = new PokemonCenter(id, 2, 20, p); // default inputs - unclear if I should ask for each value
+	this -> center_ptrs.push_back(newCenter);
+	this -> active_ptrs.push_back(newCenter);
+	this -> object_ptrs.push_back(newCenter);
+      } else {
+	cout << "Not a valid ID number" << endl;
+      }
+      break;
+    }
+
+    case 'p': {
+      // check ID input before moving on
+      Pokemon* check_ptr = this -> GetPokemonPtr(id);
+      if(check_ptr == 0) {
+	// there is not a pokemon object with input id yet
+	Pokemon* newPokemon = new Pokemon("Constructed Pokemon", 2, 20, 5, 5, 15, id, 'P', p); // default inputs - unclear if I should ask for each value
+	this -> pokemon_ptrs.push_back(newPokemon);
+	this -> active_ptrs.push_back(newPokemon);
+	this -> object_ptrs.push_back(newPokemon);
+      } else {
+	cout << "Not a valid ID number" << endl;
+      }
+      break;
+    }
+
+    case 'r': {
+      // check ID input before moving on
+      Rival* check_ptr = this -> GetRivalPtr(id);
+      BattleArena* default_arena = this -> arena_ptrs.front(); // get front arena in arena_ptrs list to place rival in 
+      if(check_ptr == 0) {
+	// there is not a rival object with input id yet
+	Rival* newRival = new Rival("Constructed Rival", 20, 5, 5, 15, id, default_arena -> GetLocation(), default_arena); // default inputs - unclear if I should ask for each value
+	this -> rival_ptrs.push_back(newRival);
+	this -> active_ptrs.push_back(newRival);
+	this -> object_ptrs.push_back(newRival); 
+	default_arena -> AddRival();
+      } else {
+	cout << "Not a valid ID number" << endl;
+      }
+    }
+      break;
+    }
+}

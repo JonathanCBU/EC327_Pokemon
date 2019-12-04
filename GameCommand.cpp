@@ -1,14 +1,14 @@
 #include "GameCommand.h"
-
+#include "Input_Handling.h"
 void DoMoveCommand(Model & model, int pokemon_id, Point2D p1)
 {
   Pokemon* pokemon_ptr = model.GetPokemonPtr(pokemon_id);
-  if(pokemon_ptr != 0 && p1.x <= 20 && p1.x >= 0 && p1.y <= 20 && p1.y >= 0) {
+  if(pokemon_ptr == 0) {
+    cout << "Invalid Pokemon ID" << endl;
+  } else {
     // pokemon id number is valid and input point is on display grid
     cout << "Moving Pokemon " << pokemon_id  << " to " << p1 << endl;
     pokemon_ptr -> StartMoving(p1);
-  } else {
-    cout << "Error: Please enter a valid command!" << endl;
   }
 }
 
@@ -109,4 +109,10 @@ void DoBattleCommand(Model & model, int pokemon_id, int rival_id)
  } else {
    cout << "Error: Please enter a valid command!" << endl;
  }
+}
+
+void DoNewObjectCommand(Model & model, char type, int id, Point2D p)
+{
+  // call model.NewCommand to create the object and add it to the proper list
+  model.NewCommand(type, id, p);
 }
