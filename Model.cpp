@@ -38,7 +38,7 @@ Model::Model()
     this -> center_ptrs.push_back(C_ptr2);
 
     this -> gym_ptrs.push_back(G_ptr1);
-    this -> gym_ptrs.push_back(G_ptr1);
+    this -> gym_ptrs.push_back(G_ptr2);
 
     this -> rival_ptrs.push_back(R_ptr1);
     this -> rival_ptrs.push_back(R_ptr2);
@@ -138,6 +138,7 @@ bool Model::Update()
     cout << "GAME OVER: You Lose! All pokemon are exhausted or fainted!" << endl;
     exit(0);
   }
+
   // FAINTED RIVALS WIN CONDITION
   int num_arenas_beaten = 0; // counter for beaten arenas (internal rivals fainted)
   for(list <BattleArena*>::iterator it = arena_ptrs.begin(); it != arena_ptrs.end(); it++) {
@@ -149,6 +150,7 @@ bool Model::Update()
     cout << "GAME OVER: You Win! All Battle Arenas are beaten!" << endl;
     exit(0); // leave program from function
   }
+
   // BEATEN GYMS WIN CONDITION
   int num_gyms_beaten = 0; // counter for beaten gyms (internal units all trained)
   for(list <PokemonGym*>::iterator it = gym_ptrs.begin(); it != gym_ptrs.end(); it++) {
@@ -163,7 +165,6 @@ bool Model::Update()
   
   // if function reaches this point then model must continue to update all objects
   int true_Updates = 0; // counts number of update calls that return true
-    
   for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); it++) {
     if((*it) -> Update()) {
       true_Updates++;
@@ -175,17 +176,14 @@ bool Model::Update()
   for(list <GameObject*>::iterator it = active_ptrs.begin(); it != active_ptrs.end(); it++) {
     if(!(*it) -> ShouldBeVisible()) {
       toRemove.push_back(*it);
-      cout << "Dead Object Removed" << endl;
     }
   }
   
-
   // loop through vector to remove marked objects
   for(int i = 0; i < toRemove.size(); i++) {
     active_ptrs.remove(toRemove[i]);
+    cout << "Dead object removed" << endl;
   }
-
-
 
   if(true_Updates > 0) {
     // return true if any update returned true

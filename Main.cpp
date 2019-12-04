@@ -1,4 +1,3 @@
-// #include "Model.h"
 #include "GameCommand.h"
 #include "Input_Handling.h"
 
@@ -39,9 +38,9 @@ int main ()
 
   do {
     cout << "Enter a command character: ";
-    cin >> command;
-    cout << endl;
     try {
+    command = get_char();
+    cout << endl;
     switch(command) 
       {
       case 'm': {
