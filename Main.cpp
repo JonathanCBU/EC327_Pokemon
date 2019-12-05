@@ -1,6 +1,5 @@
 #include "GameCommand.h"
 #include "Input_Handling.h"
-
 void printBanner(const char*);
 
 int main ()
@@ -41,22 +40,29 @@ int main ()
   do {
     cout << "Enter a command character: ";
     try {
-      cin >> command;
-    cout << endl;
-    switch(command) 
-      {
-      case 'm': {
-	// move command
-	cout << "Enter a Pokemon ID, and point coordinates to move to: ";
-	cin >> pokemon_id >> x >> y;
-	DoMoveCommand(m, pokemon_id, Point2D(x, y));
-	break;
-      }
+      command = get_command();
+      cout << endl;
+      switch(command) 
+	{
+	case 'm': {
+	  // move command
+	  cout << "Enter a Pokemon ID, and point coordinates to move to: ";
+	  pokemon_id = get_int(); // check input types
+	  x = get_dub();
+	  y = get_dub();
+	  check_ptr_id(m, 'p', pokemon_id); // verify id number
+	  check_point(Point2D(x, y)); // verify point location
+	  DoMoveCommand(m, pokemon_id, Point2D(x, y));
+	  break;
+	}
 
       case 'g': {
 	// move to gym
 	cout << "Enter a Pokemon ID and Gym ID to move to: ";
-	cin >> pokemon_id >> gym_id;
+	pokemon_id = get_int(); // verify input types
+	check_ptr_id(m, 'p', pokemon_id); // verify ids
+	gym_id = get_int();
+	check_ptr_id(m, 'g', gym_id);
 	DoMoveToGymCommand(m, pokemon_id, gym_id);
 	break;
       }
@@ -64,7 +70,10 @@ int main ()
       case 'c': {
 	// move to center
 	cout << "Enter a Pokemon ID and Center ID to move to: ";
-	cin >> pokemon_id >> center_id;
+	pokemon_id = get_int(); // verify input types
+	check_ptr_id(m, 'p', pokemon_id); // verify ids
+	center_id = get_int();
+	check_ptr_id(m, 'c', gym_id);
 	DoMoveToCenterCommand(m, pokemon_id, center_id);
 	break;
       }
@@ -72,7 +81,8 @@ int main ()
       case 's': {
 	// stop pokemon
 	cout << "Enter a Pokemon ID to stop: ";
-	cin >> pokemon_id;
+	pokemon_id = get_int(); // verify input types
+	check_ptr_id(m, 'p', pokemon_id); // verify ids
 	DoStopCommand(m, pokemon_id);
 	break;
       }
@@ -80,7 +90,9 @@ int main ()
       case 'r' : {
 	// recover in center
 	cout << "Enter a Pokemon ID and a number of stamina points to recover: ";
-	cin >> pokemon_id >> stamina_amount;
+	pokemon_id = get_int(); // verify input type
+	check_ptr_id(m, 'p', pokemon_id); // verify id
+	stamina_amount = get_uint();
 	DoRecoverInCenterCommand(m, pokemon_id, stamina_amount);
 	break;
       }
@@ -88,7 +100,9 @@ int main ()
       case 't': {
 	// train in gym
 	cout << "Enter a Pokemon ID and number of training units to complete: ";
-	cin >> pokemon_id >> unit_amount;
+	pokemon_id = get_int(); // verify input type
+	check_ptr_id(m, 'p', pokemon_id); // verify id
+	unit_amount = get_uint();	
 	DoTrainInGymCommand(m, pokemon_id, unit_amount);
 	break;
       }
@@ -111,33 +125,45 @@ int main ()
       }      
       
       case 'q': {
-            // quit command
-            cout << "Terminating program" << endl << endl;
-            return 0;
-            break;
+	// quit command
+	cout << "Terminating program" << endl << endl;
+	return 0;
+	break;
       }
        
       // PA4 cases
       case 'a': {
-            // move to arena
-            cout << "Enter a Pokemon ID and an Arena ID: ";
-            cin >> pokemon_id >> arena_id;
-            DoMoveToArenaCommand(m, pokemon_id, arena_id);
-            break;
+	// move to arena
+	cout << "Enter a Pokemon ID and an Arena ID: ";
+	pokemon_id = get_int(); // verify input types
+	check_ptr_id(m, 'p', pokemon_id); // verify ids
+	arena_id = get_int();
+	check_ptr_id(m, 'a', arena_id);
+	DoMoveToArenaCommand(m, pokemon_id, arena_id);
+	break;
       }
 
       case 'b': {
-            // battle with rival
-            cout << "Enter and pokemon ID and a Rival ID: ";
-            cin >> pokemon_id >> rival_id;
-            DoBattleCommand(m, pokemon_id, rival_id);
-            break;
+	// battle with rival
+	cout << "Enter and pokemon ID and a Rival ID: ";
+	pokemon_id = get_int(); // verify input types
+	check_ptr_id(m, 'p', pokemon_id); // verify ids
+	rival_id = get_int();
+	check_ptr_id(m, 'r', rival_id);
+	DoBattleCommand(m, pokemon_id, rival_id);
+	break;
       }
 
       case 'n': {
 	// create new object
-	cout << "Enter an object key, ID number, and x & y coordinates: ";
+	cout << "Enter an ID number, object key, and x & y coordinates: ";
 	cin >> object_key >> new_id >> x >> y;
+	new_id = get_int();
+	object_key = get_key();
+	check_new_id(m, object_key, new_id);
+	x = get_dub();
+	y = get_dub();
+	check_point(Point2D(x, y));
 	DoNewObjectCommand(m, object_key, new_id, Point2D(x, y));
 	break;
       }

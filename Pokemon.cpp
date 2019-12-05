@@ -409,6 +409,7 @@ bool Pokemon::Update()
                 // returns false if pokemon loses
                 this -> state = FAINTED;
                 this -> target -> IsAlive();
+		this -> health = 0;
             } else {
                 // pokemon won the battle
                 this -> health = this -> store_health; // restore to max health after victory

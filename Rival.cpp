@@ -114,6 +114,7 @@ bool Rival::IsAlive()
     } else {
         // rival has fainted
         this -> state = FAINTED_RIVAL;
+	this -> health = 0;
         return false;
     }
 }
