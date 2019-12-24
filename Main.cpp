@@ -73,7 +73,7 @@ int main ()
 	pokemon_id = get_int(); // verify input types
 	check_ptr_id(m, 'p', pokemon_id); // verify ids
 	center_id = get_int();
-	check_ptr_id(m, 'c', gym_id);
+	check_ptr_id(m, 'c', center_id);
 	DoMoveToCenterCommand(m, pokemon_id, center_id);
 	break;
       }
