@@ -14,6 +14,7 @@ Build instructions:
 
 ***********
 Valid commands are as follows:
+
 m ID1 X Y
  - starts moving Pokemon with ID1 to position X, Y
 
